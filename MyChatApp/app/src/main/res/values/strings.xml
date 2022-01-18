@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Chat Application</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_in_register">Enter Your Mobile Number To Authenticate.</string>
+    <string name="submitBtn_in_register">SUBMIT</string>
+    <string name="otp_verification_description">OTP will be received to registered mobile number</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="didn_t_receive_otp">Didn\'t Receive OTP?</string>
+    <string name="verify_otp">Verify OTP</string>
+    <string name="india_code">+91</string>
+</resources>

@@ -1,0 +1,56 @@
+package com.example.mychatapplication.view
+
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.os.Handler
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.mychatapplication.R
+import com.example.mychatapplication.model.ImageAnimation
+import com.example.mychatapplication.viewmodel.SharedViewModel
+import com.example.mychatapplication.viewmodel.SharedViewModelFactory
+import com.example.mychatapplication.viewmodel.SplashScreenViewModel
+import com.example.mychatapplication.viewmodel.SplashScreenViewModelFactory
+
+
+@SuppressLint("CustomSplashScreen")
+class SplashScreen : Fragment() {
+
+    private lateinit var iconImageView: ImageView
+    private lateinit var handler: Handler
+    private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var splashScreenViewModel: SplashScreenViewModel
+    private val animation = ImageAnimation()
+
+    @Suppress("DEPRECATION")
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.splash_screen, container, false)
+        iconImageView = view.findViewById(R.id.splashImageIcon)
+        handler = Handler()
+        sharedViewModel =
+            ViewModelProvider(
+                requireActivity(),
+                SharedViewModelFactory()
+            )[SharedViewModel::class.java]
+        splashScreenViewModel =
+            ViewModelProvider(
+                requireActivity(),
+                SplashScreenViewModelFactory()
+            )[SplashScreenViewModel::class.java]
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        splashScreenViewModel.doAnimation(animation, iconImageView, requireContext())
+        splashScreenViewModel.launchNextPage(sharedViewModel, handler)
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+}

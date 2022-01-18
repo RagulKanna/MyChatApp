@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="splashIconWidth">100dp</dimen>
+    <dimen name="splashIconHeight">100dp</dimen>
+    <dimen name="registerTitleMarginTop">150dp</dimen>
+    <dimen name="registerNumberMarginTop">10dp</dimen>
+</resources>

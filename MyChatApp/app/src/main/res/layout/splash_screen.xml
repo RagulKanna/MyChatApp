@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splash_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.SplashScreen">
+
+    <ImageView
+        android:id="@+id/splashImageIcon"
+        android:layout_width="@dimen/splashIconWidth"
+        android:layout_height="@dimen/splashIconHeight"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
+        android:src="@drawable/chat_application_icon"/>
+
+</RelativeLayout>

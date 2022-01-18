@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="submitMarginTop">10dp</dimen>
+    <dimen name="registerTitleTextSize">18sp</dimen>
+    <dimen name="registerNumberSize">20sp</dimen>
+    <dimen name="registerNumberWidth">180dp</dimen>
+    <dimen name="otp_description_size">18sp</dimen>
+    <dimen name="otp_number_width_size">40dp</dimen>
+    <dimen name="otp_number_height_size">45dp</dimen>
+    <dimen name="otpSize">24sp</dimen>
+    <dimen name="otp_below_line">15sp</dimen>
+    <dimen name="verify_button_text_size">18sp</dimen>
+</resources>
