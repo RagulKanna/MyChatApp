@@ -9,4 +9,14 @@
     <string name="didn_t_receive_otp">Didn\'t Receive OTP?</string>
     <string name="verify_otp">Verify OTP</string>
     <string name="india_code">+91</string>
+    <string name="username">UserName</string>
+    <string name="last_message">LastMessage</string>
+    <string name="type_a_message">Type a message…</string>
+    <string name="online">Online</string>
+    <string name="groupname">GroupName</string>
+    <string name="chat_application">Chat Application</string>
+    <string name="chats">Chats</string>
+    <string name="groupchat">group</string>
+    <string name="status">status</string>
+    <string name="calls">calls</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.mychatapplication
+package com.example.mychatapplication.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,9 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.mychatapplication.view.OtpVerificationPage
-import com.example.mychatapplication.view.RegisterPage
-import com.example.mychatapplication.view.SplashScreen
+import com.example.mychatapplication.R
 import com.example.mychatapplication.viewmodel.SharedViewModel
 import com.example.mychatapplication.viewmodel.SharedViewModelFactory
 
@@ -68,10 +66,10 @@ class MainActivity : AppCompatActivity() {
         sharedViewModel.gotoChatListPageStatus.observe(this, Observer {
             if (it == true) {
                 supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.fragment_container, DisplayChatMembers()).commit()
+                    replace(R.id.fragment_container, MainPage()).commit()
                 }
             }
         })
-    }
 
+    }
 }

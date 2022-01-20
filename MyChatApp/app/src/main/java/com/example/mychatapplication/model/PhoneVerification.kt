@@ -2,15 +2,13 @@ package com.example.mychatapplication.model
 
 import android.app.Activity
 import android.content.Context
-import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.example.mychatapplication.R
-import com.example.mychatapplication.view.OtpVerificationPage
 import com.example.mychatapplication.viewmodel.SharedViewModel
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
 import java.util.concurrent.TimeUnit
 
 
@@ -32,14 +30,11 @@ class PhoneVerification(private val activity: Activity, private val context: Con
                     codeForUser: String,
                     phoneAuthProvider: PhoneAuthProvider.ForceResendingToken
                 ) {
-                    val bundle = Bundle()
-                    bundle.putString("phoneNo", phoneNumber)
-                    bundle.putString("verificationId", codeForUser)
-                    val verifyOtp = OtpVerificationPage()
-                    verifyOtp.arguments = bundle
+                    SharedPreference.initSharedPreference(context)
+                    SharedPreference.addString(Constant.VERIFICATION_ID, codeForUser)
+                    SharedPreference.addString(Constant.PHONE_NUMBER, phoneNumber)
                     sharedViewModel.gotoRegisterPage(false)
-                    (activity as AppCompatActivity).supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, verifyOtp).commit()
+                    sharedViewModel.gotoOtpPage(true)
                     super.onCodeSent(codeForUser, phoneAuthProvider)
                 }
 
@@ -50,8 +45,7 @@ class PhoneVerification(private val activity: Activity, private val context: Con
                 override fun onVerificationFailed(p0: FirebaseException) {
                     Toast.makeText(context, "Verification Failed", Toast.LENGTH_SHORT).show()
                 }
-
-            })          // OnVerificationStateChangedCallbacks
+            })
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
     }

@@ -10,4 +10,8 @@
     <dimen name="otpSize">24sp</dimen>
     <dimen name="otp_below_line">15sp</dimen>
     <dimen name="verify_button_text_size">18sp</dimen>
+    <dimen name="userListViewSize">20sp</dimen>
+    <dimen name="lastMessageSize">18sp</dimen>
+    <dimen name="profileSizeInChatList">60dp</dimen>
+    <dimen name="titleSize">30sp</dimen>
 </resources>

@@ -11,7 +11,9 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mychatapplication.R
+import com.example.mychatapplication.model.Constant
 import com.example.mychatapplication.model.PhoneVerification
+import com.example.mychatapplication.model.SharedPreference
 import com.example.mychatapplication.viewmodel.SharedViewModel
 import com.example.mychatapplication.viewmodel.SharedViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
@@ -39,7 +41,6 @@ class OtpVerificationPage : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.otp_verification_page, container, false)
-        val data = this.requireArguments()
         phoneVerification = PhoneVerification(requireActivity(), requireContext())
         codeInput1 = view.findViewById(R.id.inputCode1)
         codeInput2 = view.findViewById(R.id.inputCode2)
@@ -49,8 +50,6 @@ class OtpVerificationPage : Fragment() {
         codeInput6 = view.findViewById(R.id.inputCode6)
         resendOtp = view.findViewById(R.id.resend_otp)
         verifyOtpButton = view.findViewById(R.id.verifyButton)
-        phoneNumber = data.getString("phoneNo").toString()
-        verificationId = data.getString("verificationId").toString()
         progressBar = view.findViewById(R.id.progress_bar)
         progressBar.isIndeterminate = true
         progressBar.visibility = View.INVISIBLE
@@ -59,6 +58,9 @@ class OtpVerificationPage : Fragment() {
                 requireActivity(),
                 SharedViewModelFactory()
             )[SharedViewModel::class.java]
+        SharedPreference.initSharedPreference(requireContext())
+        phoneNumber = SharedPreference.get(Constant.PHONE_NUMBER)
+        verificationId = SharedPreference.get(Constant.VERIFICATION_ID)
         return view
     }
 
@@ -102,14 +104,14 @@ class OtpVerificationPage : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (!p0.toString().trim().isEmpty())
                     codeInput3.requestFocus()
-                    codeInput2.setOnKeyListener(object : View.OnKeyListener {
-                        override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-                            if (p0.toString().trim().isEmpty() && keyCode == KeyEvent.KEYCODE_DEL) {
-                                codeInput1.requestFocus()
-                            }
-                            return false
+                codeInput2.setOnKeyListener(object : View.OnKeyListener {
+                    override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+                        if (p0.toString().trim().isEmpty() && keyCode == KeyEvent.KEYCODE_DEL) {
+                            codeInput1.requestFocus()
                         }
-                    })
+                        return false
+                    }
+                })
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -122,14 +124,14 @@ class OtpVerificationPage : Fragment() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (!p0.toString().trim().isEmpty())
                     codeInput4.requestFocus()
-                    codeInput3.setOnKeyListener(object : View.OnKeyListener {
-                        override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-                            if (p0.toString().trim().isEmpty() && keyCode == KeyEvent.KEYCODE_DEL) {
-                                codeInput2.requestFocus()
-                            }
-                            return false
+                codeInput3.setOnKeyListener(object : View.OnKeyListener {
+                    override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+                        if (p0.toString().trim().isEmpty() && keyCode == KeyEvent.KEYCODE_DEL) {
+                            codeInput2.requestFocus()
                         }
-                    })
+                        return false
+                    }
+                })
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -143,14 +145,14 @@ class OtpVerificationPage : Fragment() {
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     if (!p0.toString().trim().isEmpty())
                         codeInput5.requestFocus()
-                        codeInput4.setOnKeyListener(object : View.OnKeyListener {
-                            override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-                                if (p0.toString().trim().isEmpty() && keyCode == KeyEvent.KEYCODE_DEL) {
-                                    codeInput3.requestFocus()
-                                }
-                                return false
+                    codeInput4.setOnKeyListener(object : View.OnKeyListener {
+                        override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+                            if (p0.toString().trim().isEmpty() && keyCode == KeyEvent.KEYCODE_DEL) {
+                                codeInput3.requestFocus()
                             }
-                        })
+                            return false
+                        }
+                    })
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
@@ -164,14 +166,14 @@ class OtpVerificationPage : Fragment() {
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     if (!p0.toString().trim().isEmpty())
                         codeInput6.requestFocus()
-                        codeInput5.setOnKeyListener(object : View.OnKeyListener {
-                            override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-                                if (p0.toString().trim().isEmpty() && keyCode == KeyEvent.KEYCODE_DEL) {
-                                    codeInput4.requestFocus()
-                                }
-                                return false
+                    codeInput5.setOnKeyListener(object : View.OnKeyListener {
+                        override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+                            if (p0.toString().trim().isEmpty() && keyCode == KeyEvent.KEYCODE_DEL) {
+                                codeInput4.requestFocus()
                             }
-                        })
+                            return false
+                        }
+                    })
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
