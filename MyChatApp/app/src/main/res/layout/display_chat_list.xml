@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".view.DisplayUserChatList">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userListRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
-        app:reverseLayout="true"
         tools:listitem="@layout/display_chat_list_layout" />
 
 </RelativeLayout>

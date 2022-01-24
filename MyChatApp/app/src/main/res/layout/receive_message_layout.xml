@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profilePhoto"
+        android:layout_width="@dimen/profileSizeInChat"
+        android:layout_height="@dimen/profileSizeInChat"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/white"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/roundedImage"
+        app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/profilePhoto"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/receiver_message_background">
+
+        <TextView
+            android:id="@+id/receive_Message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/sendertext"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

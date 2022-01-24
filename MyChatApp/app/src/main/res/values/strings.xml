@@ -19,4 +19,10 @@
     <string name="groupchat">group</string>
     <string name="status">status</string>
     <string name="calls">calls</string>
+    <string name="submit">Submit</string>
+    <string name="name">Name</string>
+    <string name="myprofile">MyProfile</string>
+    <string name="logout">Logout</string>
+    <string name="receivertext">This is send message</string>
+    <string name="sendertext">This is receive message</string>
 </resources>

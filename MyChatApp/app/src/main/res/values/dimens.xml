@@ -13,5 +13,8 @@
     <dimen name="userListViewSize">20sp</dimen>
     <dimen name="lastMessageSize">18sp</dimen>
     <dimen name="profileSizeInChatList">60dp</dimen>
-    <dimen name="titleSize">30sp</dimen>
+    <dimen name="titleSize">25sp</dimen>
+    <dimen name="profileSizeInRegisterPage">100dp</dimen>
+    <dimen name="loginUserProfileSizeInChatList">35dp</dimen>
+    <dimen name="profileSizeInChat">20dp</dimen>
 </resources>

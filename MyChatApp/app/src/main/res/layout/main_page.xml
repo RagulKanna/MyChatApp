@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.MainPage">
+
     <data>
+
         <variable
             name="viewModel"
-            type="com.example.mychatapplication.viewmodel.MainPageViewModel" />
+            type="com.example.chatapp.viewmodel.MainPageViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/chatList_toolbar"
@@ -31,6 +34,17 @@
                     android:layout_height="wrap_content"
                     android:text="@string/chat_application"
                     android:textSize="@dimen/titleSize" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/profilePhotoView"
+                    android:layout_width="@dimen/loginUserProfileSizeInChatList"
+                    android:layout_height="@dimen/loginUserProfileSizeInChatList"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@color/white"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/roundedImage"
+                    app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
                 <View
                     android:layout_width="match_parent"

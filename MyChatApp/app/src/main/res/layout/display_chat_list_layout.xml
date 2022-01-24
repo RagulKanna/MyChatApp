@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="5dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profilePhoto"
         android:layout_width="@dimen/profileSizeInChatList"
         android:layout_height="@dimen/profileSizeInChatList"
-        app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+        android:backgroundTint="@color/white"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_baseline_account_circle_24"
+        app:shapeAppearanceOverlay="@style/roundedImage"/>
 
     <TextView
         android:id="@+id/userNameInList"
