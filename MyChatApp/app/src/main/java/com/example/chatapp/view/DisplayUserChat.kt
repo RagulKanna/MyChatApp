@@ -46,9 +46,9 @@ class DisplayUserChat : Fragment() {
             SharedViewModelFactory()
         )[SharedViewModel::class.java]
         senderRoom =
-            SharedPreference.get(Constant.CURRENT_RECEIVER_USER_ID) + SharedPreference.get(Constant.FIREBASE_UID)
+            SharedPreference.get(Constant.CURRENT_RECEIVER_USER_ID) + SharedPreference.get(Constant.CURRENT_USER_FIREBASE_UID)
         receiverRoom =
-            SharedPreference.get(Constant.FIREBASE_UID) + SharedPreference.get(Constant.CURRENT_RECEIVER_USER_ID)
+            SharedPreference.get(Constant.CURRENT_USER_FIREBASE_UID) + SharedPreference.get(Constant.CURRENT_RECEIVER_USER_ID)
         messageList = arrayListOf()
         firebaseService = FireBaseService(requireContext())
         binding.lifecycleOwner = this
@@ -64,9 +64,16 @@ class DisplayUserChat : Fragment() {
     private fun onClickFunction() {
         binding.sendBtn.setOnClickListener {
             val message = binding.messageBox.text.toString()
-            val messageObject = Message(message, SharedPreference.get(Constant.FIREBASE_UID))
+            val messageObject =
+                Message(message, SharedPreference.get(Constant.CURRENT_USER_FIREBASE_UID))
             firebaseService.addMessageToDatabase(senderRoom!!, receiverRoom!!, messageObject)
+            firebaseService.sendNotificationToOtherUser(
+                SharedPreference.get(Constant.CURRENT_RECEIVER_USER_ID),
+                SharedPreference.get(Constant.CURRENT_RECEIVER_USER_NAME),
+                messageObject.message.toString()
+            )
             binding.messageBox.setText("")
+            firebaseService.setToken()
         }
         binding.backButton.setOnClickListener {
             sharedViewModel.gotoUserChatPage(false)
@@ -78,8 +85,11 @@ class DisplayUserChat : Fragment() {
         Log.d("senderRoom", "$senderRoom")
         Log.d("senderRoom", SharedPreference.get(Constant.CURRENT_RECEIVER_USER_NAME))
         binding.name.text = SharedPreference.get(Constant.CURRENT_RECEIVER_USER_NAME)
-        Glide.with(requireContext()).load(SharedPreference.get(Constant.PROFILE_PICTURE).toUri())
+        Glide.with(requireContext())
+            .load(SharedPreference.get(Constant.OTHER_USER_PROFILE_PICTURE).toUri())
             .into(binding.profile)
         firebaseService.retrieveMessageFromDatabase(senderRoom!!, messageList, binding.recyclerView)
+
     }
+
 }

@@ -4,14 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    tools:context=".view.DisplayUserChatList">
+    android:animateLayoutChanges="true">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/userListRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
+        app:reverseLayout="true"
         tools:listitem="@layout/display_chat_list_layout" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addNewGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:elevation="20dp"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/fab_button"
+        app:fabSize="normal"
+        app:maxImageSize="40dp"
+        tools:ignore="SpeakableTextPresentCheck"/>
 
 </RelativeLayout>

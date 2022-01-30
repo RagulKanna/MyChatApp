@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         sharedViewModel.gotoChatListPageStatus.observe(this, Observer {
             if (it == true) {
                 supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.fragment_container, MainPage()).commit()
+                    replace(R.id.fragment_container, HomePage()).commit()
                 }
             }
         })
@@ -83,6 +83,14 @@ class MainActivity : AppCompatActivity() {
             if (it == true) {
                 supportFragmentManager.beginTransaction().apply {
                     replace(R.id.fragment_container, DisplayUserChat()).commit()
+                }
+            }
+        })
+
+        sharedViewModel.gotoGroupChatPageStatus.observe(this, Observer {
+            if (it == true) {
+                supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.fragment_container, DisplayGroupChat()).commit()
                 }
             }
         })

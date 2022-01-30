@@ -49,11 +49,14 @@ class MessageAdapter(val context: Context, val messagelist: ArrayList<Message>) 
         if (holder.javaClass == SenderViewHolder::class.java) {
             val viewHolder = holder as SenderViewHolder
             viewHolder.sendMessage.text = currentMessage.message
-            fireBaseService.retrieveImageForCurrentUser(context,viewHolder.profilePhoto)
+            fireBaseService.retrieveImageForCurrentUser(context, viewHolder.profilePhoto)
         } else {
             val viewHolder = holder as ReceiverViewHolder
             viewHolder.receiveMessage.text = currentMessage.message
-            Glide.with(context).load(SharedPreference.get(Constant.PROFILE_PICTURE).toUri()).into(viewHolder.profilePhoto)
+            fireBaseService.retrieveImageForOtherUserInGroup(context, currentMessage, viewHolder.profilePhoto)
+            Glide.with(context)
+                .load(SharedPreference.get(Constant.OTHER_USER_PROFILE_PICTURE).toUri())
+                .into(viewHolder.profilePhoto)
         }
     }
 

@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.example.chatapp.R
 import com.example.chatapp.adapter.TabPageAdapter
-import com.example.chatapp.databinding.MainPageBinding
+import com.example.chatapp.databinding.HomePageBinding
 import com.example.chatapp.model.SharedPreference
 import com.example.chatapp.service.FireBaseService
 import com.example.chatapp.viewmodel.MainPageViewModel
@@ -22,9 +22,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 
 @Suppress("DEPRECATION")
-class MainPage : Fragment() {
+class HomePage : Fragment() {
 
-    private lateinit var binding: MainPageBinding
+    private lateinit var binding: HomePageBinding
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var mainPageViewModel: MainPageViewModel
     private lateinit var tab: TabLayout
@@ -35,7 +35,7 @@ class MainPage : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.main_page, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.home_page, container, false)
         tab = binding.tabLayout
         viewPager = binding.viewpager
         sharedViewModel =
@@ -48,6 +48,7 @@ class MainPage : Fragment() {
                 requireActivity(),
             )[MainPageViewModel::class.java]
         fireBaseService = FireBaseService(requireContext())
+        fireBaseService.setToken()
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -83,9 +84,8 @@ class MainPage : Fragment() {
                     }
                     R.id.logout -> {
                         FirebaseAuth.getInstance().signOut()
-                        Toast.makeText(context, "Signed Out", Toast.LENGTH_SHORT).show()
-                        SharedPreference.initSharedPreference(requireContext())
                         SharedPreference.clear()
+                        Toast.makeText(context, "Signed Out", Toast.LENGTH_SHORT).show()
                         sharedViewModel.gotoHomePage(true)
                     }
                 }

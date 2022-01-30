@@ -51,11 +51,11 @@ class RegisterPage : Fragment() {
     private fun onclickFunction() {
         binding.submitMobileNumber.setOnClickListener {
             registerNumber = binding.registerMobileNumberInput.text.toString()
-            fireBaseService.phoneVerification(requireActivity(),
+            fireBaseService.phoneVerification(
+                requireActivity(),
                 registerNumber,
                 sharedViewModel,
             )
         }
     }
-
 }

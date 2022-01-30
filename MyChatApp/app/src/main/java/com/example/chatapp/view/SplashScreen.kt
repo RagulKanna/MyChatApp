@@ -49,7 +49,7 @@ class SplashScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         splashScreenViewModel.doAnimation(animation, iconImageView, requireContext())
-        splashScreenViewModel.launchNextPage(sharedViewModel, handler)
+        splashScreenViewModel.launchNextPage(sharedViewModel, handler, requireContext())
         super.onViewCreated(view, savedInstanceState)
     }
 

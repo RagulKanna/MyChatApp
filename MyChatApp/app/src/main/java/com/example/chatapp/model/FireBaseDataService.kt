@@ -42,7 +42,7 @@
 //    suspend fun addUserInfoToDatabase(userDetails: UserDetails): UserDetails {
 //        return suspendCoroutine { callback ->
 //            val dbUser = FirebaseUser(
-//                userDetails.userName,
+//                userDetails.groupName,
 //                userDetails.status,
 //                userDetails.phone,
 //                firebaseToken = userDetails.firebaseTokenId
@@ -71,7 +71,7 @@
 //                                val userFromDb = Utilities.createUserFromHashMap(userMap)
 //                                val user = UserDetails(
 //                                    uid = fuId,
-//                                    userName = userFromDb.userName,
+//                                    groupName = userFromDb.groupName,
 //                                    status = userFromDb.status,
 //                                    phone = userDetails.phone,
 //                                    profileImageUrl = userFromDb.profileImageUrl,
@@ -94,7 +94,7 @@
 //        return suspendCoroutine { callback ->
 //            val fuId = user.uid
 //            val userMap = mapOf(
-//                FIREBASE_USERNAME to user.userName,
+//                FIREBASE_USERNAME to user.groupName,
 //                FIREBASE_STATUS to user.status,
 //                FIREBASE_PHONE to user.phone,
 //                FIREBASE_PROFILE_IMAGE_URL to user.profileImageUrl,
@@ -123,7 +123,7 @@
 //                                val userFromDb = Utilities.createUserFromHashMap(userMap)
 //                                val user = UserDetails(
 //                                    uid = uid,
-//                                    userName = userFromDb.userName,
+//                                    groupName = userFromDb.groupName,
 //                                    status = userFromDb.status,
 //                                    phone = userFromDb.phoneNumber,
 //                                    profileImageUrl = userFromDb.profileImageUrl,
@@ -312,7 +312,7 @@
 //                                        continue
 //                                    } else {
 //                                        val userMap = item.data as HashMap<*, *>
-//                                        val userName = userMap[FIREBASE_USERNAME].toString()
+//                                        val groupName = userMap[FIREBASE_USERNAME].toString()
 //                                        val status = userMap[FIREBASE_STATUS].toString()
 //                                        val phone = userMap[FIREBASE_PHONE].toString()
 //                                        val profileImageUrl =
@@ -320,7 +320,7 @@
 //                                        val userToken = userMap[FIREBASE_TOKEN].toString()
 //                                        val uid = item.id
 //                                        val userFromDb = UserDetails(
-//                                            userName = userName,
+//                                            groupName = groupName,
 //                                            status = status,
 //                                            phone = phone,
 //                                            profileImageUrl = profileImageUrl,

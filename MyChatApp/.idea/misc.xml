@@ -5,12 +5,18 @@
       <map>
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/drawable-v24/home_button_bg.xml" value="0.18981481481481483" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/drawable-v24/input_bg.xml" value="0.18981481481481483" />
+        <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/drawable-v24/tick_symbol.xml" value="0.1825" />
+        <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/drawable/box_background.xml" value="0.1825" />
+        <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/drawable/close_symbol.xml" value="0.1825" />
+        <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/drawable/fab_button.xml" value="0.1825" />
+        <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.1825" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.1925925925925926" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/drawable/ic_round_send_24.xml" value="0.1925925925925926" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/drawable/receiver_message_background.xml" value="0.17592592592592593" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/drawable/send_circle.xml" value="0.1925925925925926" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/drawable/sender_message_background.xml" value="0.17592592592592593" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/activity_main.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/add_group_layout.xml" value="0.25" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/chatting_layout.xml" value="0.536" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/current_user_details_page.xml" value="0.24230072463768115" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/display_chat.xml" value="0.23278985507246377" />
@@ -20,9 +26,11 @@
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/display_chat_members.xml" value="0.375" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/display_group_chat.xml" value="0.23731884057971014" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/display_user_chat_list.xml" value="0.12708333333333333" />
-        <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/display_user_chat_page.xml" value="0.2" />
+        <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/display_user_chat_page.xml" value="0.1" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/fragment_display_chat_list.xml" value="0.23278985507246377" />
+        <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/home_page.xml" value="0.11197916666666667" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/main_page.xml" value="0.264" />
+        <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/notification_layout.xml" value="0.2028985507246377" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/otp_verification_page.xml" value="0.23731884057971014" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/receive_message_layout.xml" value="0.264" />
         <entry key="..\:/Users/ragul/AndroidStudioProjects/MyChatApplication/MyChatApp/app/src/main/res/layout/register_page.xml" value="0.23278985507246377" />

@@ -33,6 +33,13 @@ class SharedViewModel() : ViewModel() {
     private val _gotoUserChatPageStatus = MutableLiveData<Boolean>()
     val gotoUserChatPageStatus = _gotoUserChatPageStatus as LiveData<Boolean>
 
+    private val _gotoGroupChatPageStatus = MutableLiveData<Boolean>()
+    val gotoGroupChatPageStatus = _gotoGroupChatPageStatus as LiveData<Boolean>
+
+    fun gotoGroupChatPage(status: Boolean) {
+        _gotoGroupChatPageStatus.value = status
+    }
+
     fun gotoDetailsRegisterPage(status: Boolean) {
         _gotoDetailsRegisterPageStatus.value = status
     }

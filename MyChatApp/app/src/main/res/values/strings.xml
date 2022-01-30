@@ -25,4 +25,9 @@
     <string name="logout">Logout</string>
     <string name="receivertext">This is send message</string>
     <string name="sendertext">This is receive message</string>
+    <string name="this_is_title">This is title</string>
+    <string name="this_is_message">This is message</string>
+    <string name="add_group">Add Group</string>
+    <string name="group_name">Group Name</string>
+    <string name="group_icon">Group Icon</string>
 </resources>

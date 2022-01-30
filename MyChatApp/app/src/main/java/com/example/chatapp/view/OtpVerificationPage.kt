@@ -59,7 +59,7 @@ class OtpVerificationPage : Fragment() {
                 SharedViewModelFactory()
             )[SharedViewModel::class.java]
         SharedPreference.initSharedPreference(requireContext())
-        phoneNumber = SharedPreference.get(Constant.PHONE_NUMBER)
+        phoneNumber = SharedPreference.get(Constant.CURRENT_PHONE_NUMBER)
         verificationId = SharedPreference.get(Constant.VERIFICATION_ID)
         return view
     }
@@ -228,19 +228,15 @@ class OtpVerificationPage : Fragment() {
             PhoneAuthProvider.getCredential(verificationId!!, otp!!)
         FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
             .addOnSuccessListener {
+                fireBaseService.checkForNewUser()
                 Toast.makeText(
                     requireContext(),
                     "Phone Number Verified Successfully",
                     Toast.LENGTH_SHORT
                 )
                     .show()
-                fireBaseService.checkForNewUser()
                 sharedViewModel.gotoOtpPage(false)
-                if (SharedPreference.get(Constant.CHECK_USER_FLAG) == "1") {
-                    sharedViewModel.gotoChatListPage(true)
-                } else {
-                    sharedViewModel.gotoDetailsRegisterPage(true)
-                }
+                sharedViewModel.gotoDetailsRegisterPage(true)
             }.addOnFailureListener {
                 progressBar.visibility = View.GONE
                 verifyOtpButton.visibility = View.VISIBLE

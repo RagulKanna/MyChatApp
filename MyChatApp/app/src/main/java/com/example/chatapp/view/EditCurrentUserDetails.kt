@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -52,10 +53,11 @@ class EditCurrentUserDetails : Fragment() {
             )[UserDetailsViewModel::class.java]
         binding.submitButton.text = "Update"
         binding.progressBar.visibility = View.INVISIBLE
-        Glide.with(requireContext()).load(SharedPreference.get(Constant.PROFILE_PICTURE))
+        Glide.with(requireContext())
+            .load(SharedPreference.get(Constant.CURRENT_USER_PROFILE_PICTURE).toUri())
             .into(binding.profilePhoto)
-        binding.userName.setText(SharedPreference.get(Constant.REGISTER_USERNAME))
-        binding.status.setText(SharedPreference.get(Constant.STATUS))
+        binding.userName.setText(SharedPreference.get(Constant.CURRENT_USERNAME))
+        binding.status.setText(SharedPreference.get(Constant.CURRENT_USER_STATUS))
         binding.lifecycleOwner = this
         return binding.root
     }
@@ -72,16 +74,16 @@ class EditCurrentUserDetails : Fragment() {
         addToSharedPreference()
         binding.submitButton.setOnClickListener {
             user = Users(
-                SharedPreference.get(Constant.PHONE_NUMBER),
-                SharedPreference.get(Constant.FIREBASE_UID),
+                SharedPreference.get(Constant.CURRENT_PHONE_NUMBER),
+                SharedPreference.get(Constant.CURRENT_USER_FIREBASE_UID),
                 binding.userName.text.toString(),
                 binding.status.text.toString(),
-                SharedPreference.get(Constant.PROFILE_PICTURE)
+                SharedPreference.get(Constant.CURRENT_USER_PROFILE_PICTURE)
             )
             userDetailsViewModel.updateUserDetails(user)
             userDetailsViewModel.updateUserDetailsStatus.observe(viewLifecycleOwner, Observer {
                 if (it.status) {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Updated Successfully", Toast.LENGTH_SHORT).show()
                     updateDetails()
                     sharedViewModel.gotoChatListPage(true)
                 } else {
@@ -102,8 +104,8 @@ class EditCurrentUserDetails : Fragment() {
         val userName = binding.userName.text.toString()
         val status = binding.status.text.toString()
         SharedPreference.initSharedPreference(requireContext())
-        SharedPreference.addString(Constant.REGISTER_USERNAME, userName)
-        SharedPreference.addString(Constant.STATUS, status)
+        SharedPreference.addString(Constant.CURRENT_USERNAME, userName)
+        SharedPreference.addString(Constant.CURRENT_USER_STATUS, status)
     }
 
     @Suppress("DEPRECATION")

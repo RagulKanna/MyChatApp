@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,6 +24,7 @@ import com.example.chatapp.viewmodel.SharedViewModel
 import com.example.chatapp.viewmodel.SharedViewModelFactory
 import com.example.chatapp.viewmodel.UserDetailsViewModel
 import com.example.chatapp.viewmodel.UserDetailsViewModelFactory
+import kotlin.properties.Delegates
 
 class UserDetailsPage : Fragment() {
 
@@ -32,12 +34,14 @@ class UserDetailsPage : Fragment() {
     private lateinit var imageUri: Uri
     private lateinit var fireBaseService: FireBaseService
     private lateinit var user: Users
+    private var upload_done by Delegates.notNull<Int>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         fireBaseService = FireBaseService(requireContext())
         binding = DataBindingUtil.inflate(inflater, R.layout.user_details_page, container, false)
+        upload_done = 0
         sharedViewModel =
             ViewModelProvider(
                 requireActivity(),
@@ -55,6 +59,7 @@ class UserDetailsPage : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        checkExistingUser()
         onProfilePictureUpload()
         onClickSubmit()
     }
@@ -69,19 +74,22 @@ class UserDetailsPage : Fragment() {
         val userName = binding.userName.text.toString()
         val status = binding.status.text.toString()
         SharedPreference.initSharedPreference(requireContext())
-        SharedPreference.addString(Constant.REGISTER_USERNAME, userName)
-        SharedPreference.addString(Constant.STATUS, status)
+        SharedPreference.addString(Constant.CURRENT_USERNAME, userName)
+        SharedPreference.addString(Constant.CURRENT_USER_STATUS, status)
     }
 
     private fun onClickSubmit() {
         binding.submitButton.setOnClickListener {
             addToSharedPreference()
+            if (upload_done == 1) {
+                fireBaseService.uploadFile(requireContext(), imageUri, binding.progressBar)
+            }
             user = Users(
-                SharedPreference.get(Constant.PHONE_NUMBER),
-                SharedPreference.get(Constant.FIREBASE_UID),
-                SharedPreference.get(Constant.REGISTER_USERNAME),
-                SharedPreference.get(Constant.STATUS),
-                SharedPreference.get(Constant.PROFILE_PICTURE)
+                SharedPreference.get(Constant.CURRENT_PHONE_NUMBER),
+                SharedPreference.get(Constant.CURRENT_USER_FIREBASE_UID),
+                SharedPreference.get(Constant.CURRENT_USERNAME),
+                SharedPreference.get(Constant.CURRENT_USER_STATUS),
+                SharedPreference.get(Constant.CURRENT_USER_PROFILE_PICTURE)
             )
             userDetailsViewModel.registrationUserDetails(user)
             userDetailsViewModel.registrationStatus.observe(viewLifecycleOwner, Observer {
@@ -109,8 +117,19 @@ class UserDetailsPage : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PICTURE_REQUEST && resultCode == AppCompatActivity.RESULT_OK && data != null && data.data != null) {
             imageUri = data.data!!
+            upload_done = 1
             Glide.with(this).load(imageUri).into(binding.profilePhoto)
-            fireBaseService.uploadFile(requireContext(), imageUri, binding.progressBar)
+        }
+    }
+
+    private fun checkExistingUser() {
+        if (SharedPreference.get(Constant.CHECK_USER_FLAG) == "0") {
+            binding.userName.setText(SharedPreference.get(Constant.CURRENT_USERNAME))
+            binding.status.setText(SharedPreference.get(Constant.CURRENT_USER_STATUS))
+            Glide.with(requireContext())
+                .load(SharedPreference.get(Constant.CURRENT_USER_PROFILE_PICTURE).toUri())
+                .into(binding.profilePhoto)
+
         }
     }
 
