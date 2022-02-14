@@ -22,7 +22,6 @@ import com.example.chatapp.viewmodel.SharedViewModel
 import com.example.chatapp.viewmodel.SharedViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.imageview.ShapeableImageView
-import kotlin.properties.Delegates
 
 class DisplayGroupChatList : Fragment() {
 
@@ -31,8 +30,6 @@ class DisplayGroupChatList : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var fabButton: FloatingActionButton
     private lateinit var fireBaseService: FireBaseService
-
-    // private lateinit var dialogBox: Dialog
     private lateinit var addGroupIcon: ShapeableImageView
     private lateinit var imageUri: Uri
     private var uploadStatus = 0

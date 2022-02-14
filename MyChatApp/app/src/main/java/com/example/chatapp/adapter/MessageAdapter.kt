@@ -28,7 +28,7 @@ class MessageAdapter(val context: Context, val messagelist: ArrayList<Message>) 
     }
 
     class ReceiverViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val receiveMessage: TextView = itemView.findViewById(R.id.receive_Message)
+        val receiveMessage: TextView = itemView.findViewById(R.id.receive_message)
         val profilePhoto: ShapeableImageView = itemView.findViewById(R.id.profilePhoto)
     }
 

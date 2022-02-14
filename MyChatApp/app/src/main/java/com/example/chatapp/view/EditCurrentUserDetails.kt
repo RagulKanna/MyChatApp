@@ -38,7 +38,7 @@ class EditCurrentUserDetails : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         fireBaseService = FireBaseService(requireContext())
         binding = DataBindingUtil.inflate(inflater, R.layout.user_details_page, container, false)
         sharedViewModel =
@@ -83,7 +83,8 @@ class EditCurrentUserDetails : Fragment() {
             userDetailsViewModel.updateUserDetails(user)
             userDetailsViewModel.updateUserDetailsStatus.observe(viewLifecycleOwner, Observer {
                 if (it.status) {
-                    Toast.makeText(requireContext(), "Updated Successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Updated Successfully", Toast.LENGTH_SHORT)
+                        .show()
                     updateDetails()
                     sharedViewModel.gotoChatListPage(true)
                 } else {

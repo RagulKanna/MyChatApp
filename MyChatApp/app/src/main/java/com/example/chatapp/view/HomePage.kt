@@ -20,6 +20,8 @@ import com.example.chatapp.viewmodel.SharedViewModel
 import com.example.chatapp.viewmodel.SharedViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 
 @Suppress("DEPRECATION")
 class HomePage : Fragment() {
@@ -36,6 +38,7 @@ class HomePage : Fragment() {
     ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.home_page, container, false)
+        Firebase.messaging.subscribeToTopic("all")
         tab = binding.tabLayout
         viewPager = binding.viewpager
         sharedViewModel =
@@ -48,7 +51,6 @@ class HomePage : Fragment() {
                 requireActivity(),
             )[MainPageViewModel::class.java]
         fireBaseService = FireBaseService(requireContext())
-        fireBaseService.setToken()
         binding.lifecycleOwner = this
         return binding.root
     }

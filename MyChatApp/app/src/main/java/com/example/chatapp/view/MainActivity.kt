@@ -9,11 +9,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.chatapp.R
 import com.example.chatapp.viewmodel.SharedViewModel
 import com.example.chatapp.viewmodel.SharedViewModelFactory
+import com.google.firebase.FirebaseApp
+import com.google.firebase.appcheck.FirebaseAppCheck
+import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var fragmentContainerView: FragmentContainerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,6 +29,13 @@ class MainActivity : AppCompatActivity() {
         )[SharedViewModel::class.java]
         atBegin()
         observeAppNav()
+        initFirebase()
+    }
+
+    private fun initFirebase() {
+        FirebaseApp.initializeApp(this)
+        val firebaseCheck: FirebaseAppCheck = FirebaseAppCheck.getInstance()
+        firebaseCheck.installAppCheckProviderFactory(SafetyNetAppCheckProviderFactory.getInstance())
     }
 
     private fun atBegin() {

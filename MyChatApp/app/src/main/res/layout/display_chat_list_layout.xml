@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/profilePhoto"
-        android:layout_width="@dimen/profileSizeInChatList"
-        android:layout_height="@dimen/profileSizeInChatList"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp"
         android:backgroundTint="@color/white"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_baseline_account_circle_24"
-        app:shapeAppearanceOverlay="@style/roundedImage"/>
+        android:layout_margin="5dp">
 
-    <TextView
-        android:id="@+id/userNameInList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="10dp"
-        android:layout_toEndOf="@+id/profilePhoto"
-        android:text="@string/username"
-        android:textColor="@color/black"
-        android:textSize="@dimen/userListViewSize" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
 
-    <TextView
-        android:id="@+id/userLastMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/userNameInList"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/profilePhoto"
-        android:maxLength="20"
-        android:text="@string/last_message"
-        android:textColor="@color/black"
-        android:textSize="@dimen/lastMessageSize" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profilePhoto"
+                android:layout_width="@dimen/profileSizeInChatList"
+                android:layout_height="@dimen/profileSizeInChatList"
+                android:backgroundTint="@color/white"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/roundedImage"
+                app:srcCompat="@drawable/ic_baseline_account_circle_24" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/black"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/profilePhoto"/>
+            <TextView
+                android:id="@+id/userNameInList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/profilePhoto"
+                android:text="@string/username"
+                android:textColor="@color/black"
+                android:textSize="@dimen/userListViewSize" />
 
+            <TextView
+                android:id="@+id/userLastMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userNameInList"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/profilePhoto"
+                android:maxLength="20"
+                android:text="@string/last_message"
+                android:textColor="@color/black"
+                android:textSize="@dimen/lastMessageSize" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

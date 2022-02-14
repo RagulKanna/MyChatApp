@@ -31,7 +31,7 @@ class ChatListAdapter(
     override fun onBindViewHolder(holder: UserChatListViewHolder, position: Int) {
         val currentUser = userList[position]
         holder.userName.text = currentUser.userName
-        holder.lastMessage.text = currentUser.status
+        holder.lastMessage.text = currentUser.lastMessage
         fireBaseService.retrieveImageForOtherUser(context, currentUser, holder.userProfilePhoto)
         holder.itemView.setOnClickListener {
             SharedPreference.initSharedPreference(context)

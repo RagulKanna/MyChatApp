@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="submitMarginTop">10dp</dimen>
-    <dimen name="registerTitleTextSize">18sp</dimen>
+    <dimen name="registerTitleTextSize">20sp</dimen>
     <dimen name="registerNumberSize">20sp</dimen>
     <dimen name="registerNumberWidth">180dp</dimen>
     <dimen name="otp_description_size">18sp</dimen>
@@ -15,6 +15,6 @@
     <dimen name="profileSizeInChatList">60dp</dimen>
     <dimen name="titleSize">25sp</dimen>
     <dimen name="profileSizeInRegisterPage">100dp</dimen>
-    <dimen name="loginUserProfileSizeInChatList">35dp</dimen>
+    <dimen name="loginUserProfileSizeInChatList">50dp</dimen>
     <dimen name="profileSizeInChat">20dp</dimen>
 </resources>

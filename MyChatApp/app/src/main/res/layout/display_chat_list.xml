@@ -10,8 +10,8 @@
         android:id="@+id/userListRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        app:reverseLayout="true"
+        android:layout_margin="10dp"
+        app:stackFromEnd="true"
         tools:listitem="@layout/display_chat_list_layout" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -24,8 +24,10 @@
         android:layout_margin="20dp"
         android:backgroundTint="@color/white"
         android:src="@drawable/fab_button"
-        app:fabSize="normal"
+        app:tint="@color/theme_color"
+        android:scaleType="center"
         app:maxImageSize="40dp"
+        app:backgroundTint="@color/theme_color"
         tools:ignore="SpeakableTextPresentCheck"/>
 
 </RelativeLayout>

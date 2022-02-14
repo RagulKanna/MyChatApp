@@ -19,16 +19,19 @@ object Constant {
     private const val REMOTE_MSG_CONTENT_TYPE = "Content-Type"
     const val REMOTE_MSG_DATA = "data"
     const val REMOTE_MSG_REGISTRATION_IDS = "registration_ids"
+    const val BASE_URL = "https://fcm.googleapis.com"
+    const val SERVER_KEY = "AAAAS_KzHmA:APA91bGnUwHry6MXixuKPxf1qM2cJ2yJlzHDlwuGj6_NO9E-OHm1xiUydexHArXzjE82ceMuUMsMsSdQQSnUVzBYlRraVfo2N_FRFlYlFUWpuy5OgPx4nWcN5ZEC1lUfTBKiaZ_oeRTn"
+    const val CONTENT_TYPE = "application/json"
 
     var remoteMessageHeader: HashMap<String, String> = HashMap<String, String>()
 
     fun getRemoteHeader(): HashMap<String, String> {
-        if (remoteMessageHeader?.isEmpty()) {
+        if (remoteMessageHeader.isEmpty()) {
             remoteMessageHeader.put(
                 REMOTE_MSG_AUTHORIZATION,
                 "key=AAAAS_KzHmA:APA91bGVc58FUC1pnDhG_kTkKnJJIhv_OYgLX9EtOj9yyphD8QJaZ2v83F6usdgaGkW0c0etiYoQShD7A_4fDBkPlDCQR4NZZAH00EkK0ZoQCozW-D1bZBtbkEQB77Q0a_Aa-lDy2R5B"
             )
-            remoteMessageHeader.put(REMOTE_MSG_CONTENT_TYPE, "application/json")
+            remoteMessageHeader[REMOTE_MSG_CONTENT_TYPE] = "application/json"
         }
         return remoteMessageHeader
     }

@@ -1,6 +1,5 @@
 package com.example.chatapp.view
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chatapp.R
-import com.example.chatapp.adapter.ChatListAdapter
 import com.example.chatapp.model.Users
 import com.example.chatapp.service.FireBaseService
 import com.example.chatapp.viewmodel.SharedViewModel
@@ -43,6 +41,5 @@ class DisplayUserChatList : Fragment() {
         )
         return view
     }
-
 
 }

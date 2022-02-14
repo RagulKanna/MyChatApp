@@ -8,16 +8,13 @@ import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.chatapp.adapter.ChatListAdapter
 import com.example.chatapp.adapter.GroupListAdapter
-import com.example.chatapp.adapter.GroupMessageAdapter
 import com.example.chatapp.adapter.MessageAdapter
-import com.example.chatapp.api.APIService
-import com.example.chatapp.api.Client
+import com.example.chatapp.api.RetrofitInstance
 import com.example.chatapp.model.*
 import com.example.chatapp.viewmodel.SharedViewModel
 import com.google.android.gms.tasks.OnCompleteListener
@@ -32,6 +29,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -155,20 +154,23 @@ class FireBaseService(private val context: Context) {
         })
     }
 
-    fun setToken() {
-        FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            updateToken(it)
-            SharedPreference.initSharedPreference(context)
-            SharedPreference.addString(Constant.CURRENT_USER_FCM_TOKEN, it)
-        }
-        FirebaseMessaging.getInstance().subscribeToTopic("topics/myTopic")
-    }
 
-    fun addMessageToDatabase(senderRoom: String, receiverRoom: String, messageObject: Message) {
+    fun addMessageToDatabase(
+        senderRoom: String,
+        receiverRoom: String,
+        messageObject: Message,
+        receiver: String
+    ) {
         databaseReference.child("chats").child(senderRoom).child("messages").push()
             .setValue(messageObject).addOnSuccessListener {
                 databaseReference.child("chats").child(receiverRoom).child("messages").push()
                     .setValue(messageObject)
+            }.addOnCompleteListener {
+                databaseReference.child("users").child(firebaseAuth.currentUser!!.uid)
+                    .child("lastMessage")
+                    .setValue(messageObject.message)
+                databaseReference.child("users").child(receiver).child("lastMessage")
+                    .setValue(messageObject.message)
             }
     }
 
@@ -189,6 +191,7 @@ class FireBaseService(private val context: Context) {
                     val userChatAdapter = MessageAdapter(context, messageList)
                     recyclerView.layoutManager = LinearLayoutManager(context)
                     recyclerView.adapter = userChatAdapter
+                    recyclerView.scrollToPosition(messageList.size - 1)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -291,21 +294,32 @@ class FireBaseService(private val context: Context) {
             }
         }
         query.addListenerForSingleValueEvent(eventListener)
-        Log.d("CheckUserFlag", SharedPreference.get(Constant.CHECK_USER_FLAG))
     }
 
     fun updateToken(refreshToken: String) {
         val token = Token(refreshToken)
         databaseReference.child("tokens").child(firebaseAuth.currentUser?.uid!!)
-            .setValue(token)
+            .setValue(token).addOnSuccessListener {
+                SharedPreference.initSharedPreference(context)
+                SharedPreference.addString(Constant.CURRENT_USER_FCM_TOKEN, refreshToken)
+            }
     }
 
-    fun sendNotificationToOtherUser(receiver: String, userName: String, message: String) {
+    fun setToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            updateToken(it.result)
+            FirebaseMessaging.getInstance().subscribeToTopic("myTopic")
+            SharedPreference.initSharedPreference(context)
+            SharedPreference.addString(Constant.CURRENT_USER_FCM_TOKEN, it.result)
+        }
+    }
+
+    fun sendNotificationToOtherUser(receiver: String, message: String) {
         databaseReference.child("tokens").child(receiver).child("token")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val userToken: String = snapshot.getValue(String::class.java).toString()
-                    sendNotification(userToken, receiver, userName, message)
+                    sendNotificationMessage(userToken, message)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -314,39 +328,55 @@ class FireBaseService(private val context: Context) {
             })
     }
 
-    private fun sendNotification(
+    private fun sendNotificationMessage(
         userToken: String,
-        receiver: String,
-        userName: String,
-        message: String
+        messageData: String
     ) {
-        val data =
-            Data(
-                receiver,
-                userName,
-                message,
-            )
-        val sender = Sender(data, userToken)
-        Client.getClient()?.create(APIService::class.java)
-            ?.sendNotification(Constant.getRemoteHeader(), sender)
-            ?.enqueue(object : Callback<String> {
-                override fun onResponse(
-                    @NonNull call: Call<String>,
-                    @NonNull response: Response<String>
-                ) {
+        val notification = JSONObject()
+        notification.put("title", SharedPreference.get(Constant.CURRENT_USERNAME))
+        notification.put("body", messageData)
+        val message = JSONObject()
+        message.put("to", userToken)
+        message.put("notification", notification)
+        sendNotification(message.toString())
+    }
+
+    private fun sendNotification(notification: String) {
+        RetrofitInstance.api.postNotification(notification)
+            .enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    Log.d("TAG", "Response: ${response.code()}")
                     if (response.isSuccessful) {
-                        Log.d("msg", "sent")
+                        try {
+                            if (response.body() != null) {
+                                val responseJson = JSONObject(response.body()!!)
+                                val result = responseJson.getJSONArray("results")
+                                Log.d("responseBody", response.body()!!)
+                                if (responseJson.getInt("failure") == 1) {
+                                    val error = result.get(0) as JSONObject
+                                    Toast.makeText(context, "$error", Toast.LENGTH_SHORT).show()
+                                    return
+                                }
+                            }
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
+                        Toast.makeText(context, "Notification sent", Toast.LENGTH_SHORT).show()
                     } else {
-                        Log.d("msg", "${response.code()}")
+                        Toast.makeText(context, "Error: ${response.code()}", Toast.LENGTH_SHORT)
+                            .show()
+
                     }
                 }
 
-                override fun onFailure(@NonNull call: Call<String>, @NonNull t: Throwable) {
-                    Log.d("MessageError", "$t")
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    TODO("Not yet implemented")
                 }
 
             })
+
     }
+
 
     fun createGroup(name: String, uri: Uri) {
         databaseReference.child("groups").child(name)
@@ -360,7 +390,8 @@ class FireBaseService(private val context: Context) {
                             .setValue(Group(name, uri.toString()))
                             .addOnCompleteListener {
                                 groupFileReference =
-                                    FirebaseStorage.getInstance().getReference("GroupImage/$name")
+                                    FirebaseStorage.getInstance()
+                                        .getReference("GroupImage/$name")
                                 groupFileReference.child(name)
                                     .child("image").putFile(uri).addOnSuccessListener {
                                         Toast.makeText(
@@ -403,6 +434,8 @@ class FireBaseService(private val context: Context) {
                 val groupListAdapter = GroupListAdapter(context, groupList, sharedViewModel)
                 groupListRecyclerView.layoutManager = LinearLayoutManager(context)
                 groupListRecyclerView.adapter = groupListAdapter
+                groupListRecyclerView.scrollToPosition(groupList.size - 1)
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -435,7 +468,12 @@ class FireBaseService(private val context: Context) {
         databaseReference.child("groupChat").child(SharedPreference.get(Constant.GROUP_NAME))
             .child("message").push().setValue(
                 messageObject
-            )
+            ).addOnCompleteListener {
+                databaseReference.child("groups")
+                    .child(SharedPreference.get(Constant.GROUP_NAME))
+                    .child("lastMessage")
+                    .setValue(messageObject.message)
+            }
     }
 
     fun retrieveMessageFromGroupDatabase(
@@ -463,7 +501,21 @@ class FireBaseService(private val context: Context) {
 
             })
     }
+
+    fun sendNotificationToAll(messageData: String, groupName: String) {
+        val notification = JSONObject()
+        notification.put("title", groupName)
+        notification.put("body", messageData)
+        val message = JSONObject()
+        message.put("to", "/topics/all")
+        message.put("notification", notification)
+        sendNotification(message.toString())
+    }
 }
+
+
+
+
 
 
 

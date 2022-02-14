@@ -20,53 +20,56 @@
             android:id="@+id/chatList_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black"
+            android:background="@color/theme_color"
             android:theme="?attr/actionBarTheme">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:text="@string/chat_application"
-                    android:textSize="@dimen/titleSize" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/titleSize"
+                    android:textStyle="bold" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/profilePhotoView"
                     android:layout_width="@dimen/loginUserProfileSizeInChatList"
                     android:layout_height="@dimen/loginUserProfileSizeInChatList"
                     android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
-                    android:backgroundTint="@color/white"
                     android:scaleType="centerCrop"
                     app:shapeAppearanceOverlay="@style/roundedImage"
-                    app:srcCompat="@drawable/ic_baseline_account_circle_24" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/title"
-                    android:layout_marginTop="2dp"
-                    android:background="@color/white" />
+                    app:srcCompat="@drawable/modified_account_circle" />
 
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_below="@id/chatList_toolbar"
+            android:background="@color/white"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/chatList_toolbar"
-            android:background="@color/black"
+            android:layout_below="@+id/view_line"
+            android:background="@color/white"
             android:elevation="5dp"
             app:tabGravity="fill"
-            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorColor="@color/theme_color"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/white"
+            app:tabSelectedTextColor="@color/theme_color"
             app:tabTextColor="#575757">
 
             <com.google.android.material.tabs.TabItem
@@ -96,6 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/tabLayout"
+            android:background="@color/theme_color"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </RelativeLayout>

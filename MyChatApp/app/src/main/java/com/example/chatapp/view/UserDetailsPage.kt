@@ -38,7 +38,7 @@ class UserDetailsPage : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         fireBaseService = FireBaseService(requireContext())
         binding = DataBindingUtil.inflate(inflater, R.layout.user_details_page, container, false)
         upload_done = 0

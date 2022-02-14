@@ -36,6 +36,7 @@ class GroupListAdapter(
     override fun onBindViewHolder(holder: GroupChatListViewHolder, position: Int) {
         val currentGroup = groupList[position]
         holder.groupName.text = currentGroup.groupName
+        holder.lastMessage.text = currentGroup.lastMessage
         fireBaseService.retrieveImageForGroup(context, currentGroup, holder.groupProfilePhoto)
         holder.itemView.setOnClickListener {
             SharedPreference.initSharedPreference(context)

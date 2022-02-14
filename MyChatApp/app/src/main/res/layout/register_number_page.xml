@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.RegisterPage">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.chatapp.viewmodel.RegisterViewModel" />
@@ -12,72 +14,108 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:animateLayoutChanges="true">
-
-        <TextView
-            android:id="@+id/register_title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/registerTitleMarginTop"
-            android:text="@string/title_in_register"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="@dimen/registerTitleTextSize" />
-
-        <EditText
-            android:id="@+id/register_mobile_number_input"
-            android:layout_width="@dimen/registerNumberWidth"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/register_title_text"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/registerNumberMarginTop"
-            android:layout_marginStart="@dimen/registerNumberMarginTop"
-            android:backgroundTint="@color/black"
-            android:inputType="number"
-            android:maxLength="10"
-            android:textAlignment="center"
-            android:textAppearance="@style/Widget.AppCompat.Spinner.Underlined"
-            android:textColor="@color/black"
-            android:textCursorDrawable="@null"
-            android:textSize="@dimen/registerNumberSize" />
+        android:animateLayoutChanges="true"
+        android:background="@color/theme_color">
 
         <ImageView
-            android:id="@+id/country_flag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/submit_mobile_number"
-            android:layout_below="@+id/register_title_text"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/country_code"
-            android:src="@drawable/indian_flag" />
-
-        <TextView
-            android:id="@+id/country_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/submit_mobile_number"
-            android:layout_below="@+id/register_title_text"
-            android:layout_toStartOf="@+id/register_mobile_number_input"
-            android:paddingTop="15dp"
-            android:text="@string/india_code"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-
-        <Button
-            android:id="@+id/submit_mobile_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/register_mobile_number_input"
+            android:layout_above="@+id/cardLayout"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/submitMarginTop"
-            android:backgroundTint="@color/black"
-            android:text="@string/submitBtn_in_register"
-            android:textColor="@color/white" />
+            android:layout_margin="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/chat_application_icon"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/white"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="30dp">
+
+                <TextView
+                    android:id="@+id/register_title_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="40dp"
+                    android:text="@string/title_in_register"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/registerTitleTextSize"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/register_title_text"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:background="@drawable/box_background">
+
+                        <ImageView
+                            android:id="@+id/country_flag"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:src="@drawable/indian_flag" />
+
+                        <EditText
+                            android:id="@+id/register_mobile_number_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_toEndOf="@+id/country_code"
+                            android:backgroundTint="@color/black"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/Widget.AppCompat.Spinner.Underlined"
+                            android:textColor="@color/black"
+                            android:textCursorDrawable="@null"
+                            android:textSize="@dimen/registerNumberSize" />
+
+                        <TextView
+                            android:id="@+id/country_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/country_flag"
+                            android:paddingTop="15dp"
+                            android:text="@string/india_code"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/submit_mobile_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linearLayout"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/theme_color"
+                    android:text="@string/submitBtn_in_register"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 </layout>

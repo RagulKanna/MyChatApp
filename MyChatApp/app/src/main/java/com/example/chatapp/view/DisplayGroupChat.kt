@@ -1,10 +1,10 @@
 package com.example.chatapp.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,7 +16,10 @@ import com.example.chatapp.model.Constant
 import com.example.chatapp.model.Message
 import com.example.chatapp.model.SharedPreference
 import com.example.chatapp.service.FireBaseService
-import com.example.chatapp.viewmodel.*
+import com.example.chatapp.viewmodel.GroupChatViewModel
+import com.example.chatapp.viewmodel.GroupChatViewModelFactory
+import com.example.chatapp.viewmodel.SharedViewModel
+import com.example.chatapp.viewmodel.SharedViewModelFactory
 
 class DisplayGroupChat : Fragment() {
 
@@ -29,7 +32,7 @@ class DisplayGroupChat : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         firebaseService = FireBaseService(requireContext())
         binding =
             DataBindingUtil.inflate(inflater, R.layout.display_group_chat, container, false)
@@ -54,17 +57,26 @@ class DisplayGroupChat : Fragment() {
 
     private fun onClickFunction() {
         binding.sendBtn.setOnClickListener {
-            val message = binding.messageBox.text.toString()
-            val messageObject =
-                Message(message, SharedPreference.get(Constant.CURRENT_USER_FIREBASE_UID))
-            firebaseService.addMessageToGroupDatabase(messageObject)
-            binding.messageBox.setText("")
+            if (binding.messageBox.text.isEmpty()) {
+                Toast.makeText(context, "Enter message to send", Toast.LENGTH_SHORT).show()
+            } else {
+                val message = binding.messageBox.text.toString()
+                val messageObject =
+                    Message(message, SharedPreference.get(Constant.CURRENT_USER_FIREBASE_UID))
+                firebaseService.addMessageToGroupDatabase(messageObject)
+                firebaseService.sendNotificationToAll(
+                    messageObject.message.toString(),
+                    binding.name.text.toString()
+                )
+                binding.messageBox.setText("")
+            }
         }
         binding.backButton.setOnClickListener {
             sharedViewModel.gotoGroupChatPage(false)
             sharedViewModel.gotoChatListPage(true)
         }
     }
+
     private fun setDataFromDataBase() {
         binding.name.text = SharedPreference.get(Constant.GROUP_NAME)
         Glide.with(requireContext())
