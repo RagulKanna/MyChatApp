@@ -226,6 +226,7 @@ class FireBaseService(private val context: Context) {
         profilePhoto: ShapeableImageView,
     ) {
         userFileReference.downloadUrl.addOnSuccessListener { uri ->
+            Log.d("image", uri.toString())
             Glide.with(context).load(uri).into(profilePhoto)
             SharedPreference.initSharedPreference(context)
             SharedPreference.addString(Constant.CURRENT_USER_PROFILE_PICTURE, uri.toString())
@@ -376,7 +377,6 @@ class FireBaseService(private val context: Context) {
             })
 
     }
-
 
     fun createGroup(name: String, uri: Uri) {
         databaseReference.child("groups").child(name)
